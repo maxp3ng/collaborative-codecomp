@@ -9,8 +9,10 @@ public class cf967B {
         int totalWater = scan.nextInt();
         int minWater = scan.nextInt();
 
+        // array to store all the holes except for the first hole
         double arr[] = new double[n - 1];
 
+        // first hole will be stored by itself for now
         double first = scan.nextDouble();
         double sum = first;
 
@@ -20,17 +22,22 @@ public class cf967B {
             sum += arr[i];
         }
 
+        // sort array to start subtracting the sum by the largest sizes first
         Arrays.sort(arr);
 
+        // start looping backwards to subtract the largest numbers first
         for (int i = n - 2; i >= 0; i--) {
+            // (first hole * water) / sum of non-blocked holes
+            // check if ^^ is greater than the minimum volume he wants to get out
             if ((first * totalWater) / sum >= minWater) {
                 System.out.println(n - 2 - i);
                 return;
             }
+
             sum -= arr[i];
         }
+
+        // code doesn't account for all holes being blocked, added just in case
         System.out.println(n - 1);
     }
-
 }
-
