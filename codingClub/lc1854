@@ -1,0 +1,45 @@
+class Solution {
+    public int maximumPopulation(int[][] logs) {
+        int min = 11000;
+        int max = 0;
+
+
+        // finding min and max to declare array length (with it's range)
+        for (int i = 0; i < logs.length; i++) {
+            if (logs[i][0] < min) {
+                min = logs[i][0];
+            }
+            if (logs[i][1] > max) {
+                max = logs[i][1];
+            }
+        }
+        
+
+        int arr[] = new int[max - min];
+        
+        // traverse through input and increment in temp array 
+        // for every alive year per person
+        for (int i = 0; i < logs.length; i++) {
+            int birth = logs[i][0];
+            int death = logs[i][1];
+
+            // index 0 will be min year
+            for (int j = birth; j < death; j++) {
+                arr[j - min]++;
+            }
+
+        }
+
+        // traversing through created array to find maximum value
+        // return index + min to get the year
+        int arrMax = 0;
+        int currMaxIndex = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > arrMax) {
+                arrMax = arr[i];
+                currMaxIndex = i;
+            }
+        }
+
+        return currMaxIndex + min;
+    }
